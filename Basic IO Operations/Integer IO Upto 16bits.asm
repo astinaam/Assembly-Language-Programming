@@ -1,10 +1,10 @@
-ORG 100h
+ ORG 100h
 .model small
 .stack 100h
 
 .data
      tmp DW ?
-     sum  DW ?
+     val  DW ?
      ;msg DB "The Input number is : $"
   
                                     
@@ -48,12 +48,12 @@ ORG 100h
     MOV DL,13               ;carriage return
     INT 21h
     
-    MOV sum,BX              ;put result to sum
+    MOV val,BX              ;put result to val
     JMP OutPut              ;go to OutPut
     
     OutPut:
     MOV CX,0	             ;clear CX
-    MOV AX,sum              ;save the value of sum in AX 
+    MOV AX,val              ;save the value of val in AX 
     MOV BX,10	             ;put bx = 10   
     
     print:	             ;start printing
