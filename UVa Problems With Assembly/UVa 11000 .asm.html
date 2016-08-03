@@ -1,0 +1,196 @@
+<html>
+<head>
+       <title>source code: UVa 11000 .asm</title>
+       <meta name="description" content="source code">
+       <style>
+           a:link {text-decoration: none}
+           a:visited {text-decoration: none}
+           a:hover {text-decoration: none; color:#ff0000}
+       </style>
+</head>
+<body leftmargin=110  rightmargin=110 topmargin=20 bgcolor=#FFFFFF text=#000000 link=blue vlink=blue alink=blue>
+ 
+ 
+<!-- * -->
+ 
+ 
+
+
+
+
+&nbsp; &nbsp;<center> <font color=#FFFFFF> ;</font> <font size=3 face="Consolas"> UVa 11000 .asm </font></center>
+
+
+
+
+
+
+<!-- START AUTOMATIC ASM TO HTML EXPORT -->
+<pre><font size=3 face="Consolas">
+<font color=#008000>;UVa 11000 - Bee </font>
+ 
+<font color=#000064>ORG</font> 100h 
+.model small 
+.stack 100h 
+ 
+.data 
+    tmp           <font color=#000064>DW</font> ? 
+    maleToFemale  <font color=#000064>DW</font> ? 
+    maleToMale    <font color=#000064>DW</font> ? 
+    femaleToMale  <font color=#000064>DW</font> ? 
+    male          <font color=#000064>DW</font> 0 
+    female        <font color=#000064>DW</font> 1 
+    NG            <font color=#000064>DW</font> <font color=#0064C8>-</font>1 
+      
+.code 
+    main <font color=#0000FF>PROC</font> 
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,@data 
+        <font color=#0000FF>MOV</font> <font color=#C80000>DX</font>,<font color=#C80000>AX</font> 
+         
+        first: 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,1 
+        <font color=#0000FF>INT</font> 21h 
+         
+        <font color=#0000FF>CMP</font> <font color=#C80000>AL</font>,<font color=#800080>'-'</font> 
+        <font color=#0000FF>JE</font> stop 
+         
+        <font color=#0000FF>CALL</font> input 
+       
+        <font color=#0000FF>MOV</font> <font color=#C80000>CX</font>,<font color=#C80000>BX</font> 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,0 
+        <font color=#0000FF>MOV</font> male,0 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,1 
+        <font color=#0000FF>MOV</font> female,<font color=#C80000>AX</font> 
+         
+        run: 
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,male 
+        <font color=#0000FF>MOV</font> maleToMale,<font color=#C80000>AX</font> 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,male 
+        <font color=#0000FF>mov</font> maleToFemale,<font color=#C80000>ax</font>  
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,female 
+        <font color=#0000FF>MOV</font> femaleToMale,<font color=#C80000>AX</font> 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,0 
+        <font color=#0000FF>ADD</font> <font color=#C80000>AX</font>,femaleToMale 
+        <font color=#0000FF>ADD</font> male,<font color=#C80000>AX</font> 
+         
+        <font color=#0000FF>MOV</font> female,1 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,0 
+        <font color=#0000FF>ADD</font> <font color=#C80000>AX</font>,maleToFemale 
+        <font color=#0000FF>ADD</font> female,<font color=#C80000>AX</font>   
+         
+        <font color=#0000FF>LOOP</font> run 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>DX</font>,male 
+        <font color=#0000FF>CALL</font> print 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,2 
+        <font color=#0000FF>MOV</font> <font color=#C80000>DL</font>,<font color=#800080>' '</font> 
+        <font color=#0000FF>INT</font> 21h 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>DX</font>,male 
+        <font color=#0000FF>ADD</font> <font color=#C80000>DX</font>,female 
+         
+        <font color=#0000FF>CALL</font> print 
+         
+        <font color=#0000FF>CALL</font> newLine 
+         
+        <font color=#0000FF>JMP</font> first 
+         
+        stop: 
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,1 
+        <font color=#0000FF>INT</font> 21h 
+         
+        <font color=#0000FF>INT</font> 21h 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,4ch 
+        <font color=#0000FF>INT</font> 21h 
+    main ENDP 
+     
+    input <font color=#0000FF>PROC</font> 
+        Start: 
+        <font color=#0000FF>MOV</font> <font color=#C80000>BX</font>,0                 
+                            
+        InputB:                  
+         <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,0	             
+         <font color=#0000FF>SUB</font> <font color=#C80000>AL</font>,48	             
+         <font color=#0000FF>MOV</font> tmp,<font color=#C80000>AX</font>             
+      
+         <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,10             
+         <font color=#0000FF>MUL</font> <font color=#C80000>BX</font>                    
+     
+         <font color=#0000FF>MOV</font> <font color=#C80000>BX</font>,<font color=#C80000>AX</font>                
+         <font color=#0000FF>ADD</font> <font color=#C80000>BX</font>,tmp                
+     
+         <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,1	            
+         <font color=#0000FF>INT</font> 21h                 
+     
+         <font color=#0000FF>CMP</font> <font color=#C80000>AL</font>,0dh	            
+         <font color=#0000FF>JNE</font> InputB 
+         <font color=#0000FF>CALL</font> newline 
+         <font color=#0000FF>RET</font>	           
+     input ENDP 
+     
+    newLine <font color=#0000FF>PROC</font> 
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,2 
+        <font color=#0000FF>MOV</font> <font color=#C80000>DL</font>,10 
+        <font color=#0000FF>INT</font> 21h 
+        <font color=#0000FF>MOV</font> <font color=#C80000>DL</font>,13 
+        <font color=#0000FF>INT</font> 21h 
+        <font color=#0000FF>RET</font> 
+    newLine ENDP 
+     
+    print <font color=#0000FF>PROC</font> 
+        <font color=#0000FF>MOV</font> <font color=#C80000>AX</font>,<font color=#C80000>DX</font> 
+        <font color=#0000FF>MOV</font> <font color=#C80000>CX</font>,0 
+        <font color=#0000FF>MOV</font> <font color=#C80000>BX</font>,10 
+        make: 
+        <font color=#0000FF>MOV</font> <font color=#C80000>DX</font>,0 
+        <font color=#0000FF>DIV</font> <font color=#C80000>BX</font> 
+         
+        <font color=#0000FF>PUSH</font> <font color=#C80000>DX</font> 
+        <font color=#0000FF>INC</font> <font color=#C80000>CX</font> 
+         
+        <font color=#0000FF>CMP</font> <font color=#C80000>AX</font>,0 
+        <font color=#0000FF>JNE</font> make 
+         
+        printing: 
+         
+        <font color=#0000FF>POP</font> <font color=#C80000>DX</font> 
+         
+        <font color=#0000FF>MOV</font> <font color=#C80000>AH</font>,2 
+         
+        <font color=#0000FF>ADD</font> <font color=#C80000>DL</font>,48 
+         
+        <font color=#0000FF>INT</font> 21h 
+         
+        <font color=#0000FF>LOOP</font> printing 
+        <font color=#0000FF>RET</font> 
+    print ENDP 
+         
+<font color=#000064>END</font>     
+     
+     
+         
+         
+</font></pre>
+<center> <font color=#FFFFFF>;</font> <a href="http://www.emu8086.com" target="_blank"><font face=verdana size=1 color=#000000> - asm2html - </font></a> </center>
+<!-- emu8086 version 4.08    -->
+<!-- STOP AUTOMATIC ASM TO HTML EXPORT -->
+
+
+
+
+ 
+ 
+<!-- *** -->
+ 
+ 
+</body>
+</html>
